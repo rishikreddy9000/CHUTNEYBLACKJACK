@@ -1,0 +1,20 @@
+extends base
+
+block vars
+  - var title = 'Login'
+
+block body
+ #tables
+ #logregContainer
+  h1 Account Login
+
+  if error
+    p.errorMessage #{error}
+
+  form(method="post")
+    input(type="text", name="username" placeholder="username", required=true)
+
+    input(type="password", name="password" placeholder="password", required=true)
+    br
+
+    input(type="submit" value="Submit")

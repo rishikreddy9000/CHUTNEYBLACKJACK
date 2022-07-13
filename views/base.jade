@@ -1,0 +1,28 @@
+block vars 
+doctype html
+html
+  head
+    style
+      include css/font.css
+      include css/style.css
+    link(rel='shortcut icon', href='/images/favicon.ico', type='image/x-icon')
+    title BLACKJACK | #{title}
+    script(src='js/game.js')
+  body
+    block body
+ #topNav
+  h1 <a href="/">Blackjack</a> : #{title}
+ #topControls
+  if locals.user
+   img(src= "/images/chips.png" width="16" height="16" value="test") 
+   ul
+    li: span #{user.chips}
+    li: span #{user.username}
+    li: span <a href="/logout">Logout</a>
+  else
+   #topLogin
+    span <a href="/register">register</a>
+    form(method="post")
+     input(type="text", name="username" placeholder="username", required=true)
+     input(type="password", name="password" placeholder="password", required=true)
+     input(type="submit" value="Login")

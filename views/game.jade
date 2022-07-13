@@ -1,0 +1,43 @@
+extends base
+block vars
+  - var title = 'Play'
+  - var status = game.status
+
+block body
+ #board
+  #dealerDeck
+   img(src= "/images/cards/back.svg" id="dummy" width="120" height="170")
+  #dealerDeck2
+   img(src= "/images/cards/back.svg" id="dummy" width="120" height="170")
+  #boardWrap
+   #dealerBoard
+    if status=='play'
+      img(src= "/images/cards/back.svg" id="x" width="120" height="170")
+      img(src= "#{game.dealerHand[1].imgSrc}" id="y" width="120" height="170")
+    else
+      each card in game.dealerHand
+        img(src= "#{card.imgSrc}" id="x" width="120" height="170")
+   #gameResult
+    case status
+      when 'play'
+        h1(id='result') Bet: 200 chips
+      when 'win'
+        h1(id='result') WINNER, WINNER Chicken dinner! +400 chips
+      when 'lose'
+        h1(id='result') LOSER! Sucks to suck. -200 chips
+      when 'bust'
+        h1(id='result') BUST! You're a loser. -200 chips
+   #playerBoard
+    each card in game.playerHand
+      img(src= "#{card.imgSrc}" id="x" width="120" height="170")
+ #avatar
+  img(src= "#{user.avatar}" width="125" height="125")
+ #controls
+  if status=='play'
+    button#hit(data-action="bea" onclick='hit()') Hit
+    i &nbsp;or&nbsp;
+    button#no(data-action="bea" onclick='naw()') Naw
+  if status=='bust' || status=='win' || status=='lose'
+    button#hit(data-action="bea" onclick='home()') Home
+    i &nbsp;or&nbsp;
+    button#no(data-action="bea" class='reset' onclick='reset()') Rematch
